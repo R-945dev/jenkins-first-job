@@ -2,21 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
-            steps {
-                echo 'Cloning repository...'
-            }
-        }
-
         stage('Print Details') {
             steps {
-                bat 'type info.txt'
-            }
-        }
-
-        stage('Finish') {
-            steps {
-                echo 'Pipeline executed successfully!'
+                script {
+                    if (isUnix()) {
+                        sh 'cat info.txt'
+                    } else {
+                        bat 'type info.txt'
+                    }
+                }
             }
         }
     }
